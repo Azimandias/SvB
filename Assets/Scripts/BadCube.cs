@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class CirleOfLife : MonoBehaviour
+public class BadCube : MonoBehaviour
 {
     public int bonus = 10;
     public TextMeshPro bonusText;
@@ -15,4 +15,7 @@ public class CirleOfLife : MonoBehaviour
     {
         bonusText.text = bonus.ToString();
     }
+
 }
+
+

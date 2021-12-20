@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
@@ -13,15 +14,21 @@ public class Movement : MonoBehaviour
     private Vector3 PreviousMousePosition;
     private float sidewaysSpeed;
 
+
+
+    public float boulForce = 5f;
+
+
+
     void Start()
-    {
+    { 
+        for (int i = 0; i < Points; i++) componentSnakeTail.AddCircle();
+
         PointsText.text = Points.ToString();
     }
 
     void Update()
-    {
-        
-
+    {       
         transform.position += transform.forward * Speed * Time.deltaTime;
 
         if (Input.GetMouseButton(0))
@@ -49,29 +56,37 @@ public class Movement : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        /*if (collision.collider.TryGetComponent(out BadSector badSector))
+        if (collision.collider.TryGetComponent(out BadCube badSector))
         {
-            HP--;
-            playerHPvisualise.UpdateVisualisation();
+            for (int i = 0; i < badSector.bonus; i++)
+            {
+                Boul();
+                Points --;
+                badSector.bonus--;
+                componentSnakeTail.RemoveCircle();
+                PointsText.text = Points.ToString();
+                badSector.BadCubePoints();
+            }
 
-            badSector.BadSectorHP--;
-            badSector.UpdateBadSectorHP();
-
-            if (HP == 0)
+            if (Points == 0)
             {
                 Debug.Log("game over");
             }
 
-            if (badSector.BadSectorHP == 0)
+            if (badSector.bonus == 0)
             {
-                Destroy(collision.gameObject);
+                Destroy(badSector.gameObject);
             }
-        }*/
+        }
 
         if (collision.collider.TryGetComponent(out CirleOfLife eat))
-        {           
-            Points += eat.bonus;
-            PointsText.text = Points.ToString();
+        {
+            for (int i = 0; i < eat.bonus; i++)
+            {
+                Points++;
+                componentSnakeTail.AddCircle();
+                PointsText.text = Points.ToString();
+            }
             Destroy(eat.gameObject);
         }
     }
@@ -82,6 +97,13 @@ public class Movement : MonoBehaviour
         Head.velocity = new Vector3(sidewaysSpeed * 5, Speed);
 
         sidewaysSpeed = 0;
+    }
+
+    public async void Boul()
+    {
+        Head.AddForce(new Vector3(0, 0, -boulForce), ForceMode.Impulse);
+        await Task.Delay(150);
+        //MooveForward();
     }
 
 }

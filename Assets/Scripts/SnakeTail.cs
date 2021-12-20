@@ -39,23 +39,6 @@ public class SnakeTail : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter(Collision collision)
-    {
-
-        /*if (collision.collider.TryGetComponent(out BadSector badSector))
-        {
-            RemoveCircle();
-        }*/
-
-        if (collision.collider.TryGetComponent(out CirleOfLife eat))
-        {
-            for (int i = 0; i < eat.bonus; i++)
-            {
-                AddCircle();
-            }
-        }
-    }
-
     public void AddCircle()
     {
         GameObject circle = Instantiate(BodyPrefab, positions[positions.Count - 1], Quaternion.identity, transform);
