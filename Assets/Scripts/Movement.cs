@@ -16,7 +16,7 @@ public class Movement : MonoBehaviour
 
 
 
-    public float boulForce = 5f;
+   // public float boulForce = 5f;
 
 
 
@@ -27,7 +27,7 @@ public class Movement : MonoBehaviour
         PointsText.text = Points.ToString();
     }
 
-    void Update()
+    void FixedUpdate() //Update()
     {       
         transform.position += transform.forward * Speed * Time.deltaTime;
 
@@ -60,22 +60,21 @@ public class Movement : MonoBehaviour
         {
             for (int i = 0; i < badSector.bonus; i++)
             {
-                Boul();
-                Points --;
+                Points--;
                 badSector.bonus--;
                 componentSnakeTail.RemoveCircle();
                 PointsText.text = Points.ToString();
                 badSector.BadCubePoints();
-            }
 
-            if (Points == 0)
-            {
-                Debug.Log("game over");
-            }
+                if (Points == 0)
+                {
+                    Debug.Log("game over");
+                }
 
-            if (badSector.bonus == 0)
-            {
-                Destroy(badSector.gameObject);
+                if (badSector.bonus == 0)
+                {
+                    Destroy(badSector.gameObject);
+                }
             }
         }
 
@@ -89,21 +88,10 @@ public class Movement : MonoBehaviour
             }
             Destroy(eat.gameObject);
         }
-    }
-
-    private void FixedUpdate()
-    {
         if (Mathf.Abs(sidewaysSpeed) > 4) sidewaysSpeed = 4 * Mathf.Sign(sidewaysSpeed);
         Head.velocity = new Vector3(sidewaysSpeed * 5, Speed);
 
         sidewaysSpeed = 0;
-    }
-
-    public async void Boul()
-    {
-        Head.AddForce(new Vector3(0, 0, -boulForce), ForceMode.Impulse);
-        await Task.Delay(150);
-        //MooveForward();
     }
 
 }
