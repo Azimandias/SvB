@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BadCube : MonoBehaviour
 {
-    public int bonus = 10;
+    public int bonus;
     public TextMeshPro bonusText;
 
     private void Start()
@@ -17,5 +17,4 @@ public class BadCube : MonoBehaviour
     }
 
 }
-
 

@@ -13,10 +13,6 @@ public class SnakeTail : MonoBehaviour
     private void Awake()
     {
         positions.Add(SnakeHead.position);
-        AddCircle();
-        AddCircle();
-        AddCircle();
-        AddCircle();
     }
 
     private void Update()
@@ -38,10 +34,9 @@ public class SnakeTail : MonoBehaviour
         }
     }
 
-
     public void AddCircle()
     {
-        GameObject circle = Instantiate(BodyPrefab, positions[positions.Count - 1], Quaternion.identity, transform);
+        GameObject circle = Instantiate(BodyPrefab, positions[positions.Count-1], Quaternion.identity, transform);
         snakeCircles.Add(circle.transform);
         positions.Add(circle.transform.position);
     }
