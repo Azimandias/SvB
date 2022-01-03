@@ -6,14 +6,25 @@ public class BadCube : MonoBehaviour
     public int bonus = 10;
     public TextMeshPro bonusText;
 
-    private void Start()
+    public void BadCubePoints()
     {
         bonusText.text = bonus.ToString();
     }
 
-    public void BadCubePoints()
+
+    private void OnValidate()
     {
         bonusText.text = bonus.ToString();
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        GetComponent<ParticleSystem>().Play();
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        GetComponent<ParticleSystem>().Stop();
     }
 
 }
